@@ -1,5 +1,6 @@
 package com.petshop.trabalho.veterinary;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.petshop.trabalho.consultation.Consultation;
 import com.petshop.trabalho.person.Person;
 import lombok.Data;
@@ -15,18 +16,11 @@ public class Veterinary {
     @Column(name="person_id")
     private Long id;
 
-    @OneToOne
     @MapsId
-    @JoinColumn(name="person_id")
+    @OneToOne
+    @PrimaryKeyJoinColumn(name="person_id")
     private Person person;
 
+    @Column(name = "crmv", nullable = false)
     private String crmv;
-
-    @ManyToMany
-    @JoinTable(
-            name="veterinary_consultation",
-            joinColumns = @JoinColumn(name="veterinary_id"),
-            inverseJoinColumns = @JoinColumn(name="consultation_id"))
-    private Set<Consultation> vet_consultation;
-
 }

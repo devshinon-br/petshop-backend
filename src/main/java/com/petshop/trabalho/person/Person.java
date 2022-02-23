@@ -1,10 +1,12 @@
 package com.petshop.trabalho.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.petshop.trabalho.pet.Pet;
 import com.petshop.trabalho.veterinary.Veterinary;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
@@ -15,24 +17,18 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "street", nullable = false)
     private String street;
 
+    @Column(name = "number", nullable = false)
     private Integer number;
 
+    @Column(name = "district", nullable = false)
     private String district;
 
+    @Column(name = "city", nullable = false)
     private String city;
-
-    @OneToOne(mappedBy="person", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Veterinary veterinary;
-
-    @ManyToMany
-    @JoinTable(
-        name="person_pet",
-        joinColumns = @JoinColumn(name="person_id"),
-        inverseJoinColumns = @JoinColumn(name="pet_id"))
-    private Set<Pet> person_pet;
 }

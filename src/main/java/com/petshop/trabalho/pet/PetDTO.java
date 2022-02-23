@@ -10,4 +10,5 @@ public class PetDTO {
     private String color;
     private Date birth_date;
     private String description;
+    private Long person_id;
 }

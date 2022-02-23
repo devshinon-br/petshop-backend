@@ -1,11 +1,16 @@
 package com.petshop.trabalho.veterinary;
 
+import com.petshop.trabalho.person.Person;
 import com.petshop.trabalho.person.PersonRepository;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
+@Service
 public class VeterinaryServiceImp implements VeterinaryService{
     private final VeterinaryRepository veterinaryRepository;
     private final PersonRepository personRepository;
@@ -18,11 +23,16 @@ public class VeterinaryServiceImp implements VeterinaryService{
     @Override
     public Veterinary save(VeterinaryDTO veterinaryDTO) throws IOException {
         Veterinary veterinary = new Veterinary();
+        Optional<Person> person = personRepository.findById(veterinaryDTO.getPerson_id());
 
-        veterinary.setCrmv(veterinaryDTO.getCrmv());
-        veterinary.setPerson(personRepository.findById(veterinaryDTO.getPerson_id()).get());
+        if(person.isPresent()){
+            veterinary.setCrmv(veterinaryDTO.getCrmv());
+            veterinary.setPerson(person.get());
 
-        return veterinaryRepository.save(veterinary);
+            veterinaryRepository.save(veterinary);
+        }
+
+        return veterinary;
     }
 
     @Override
