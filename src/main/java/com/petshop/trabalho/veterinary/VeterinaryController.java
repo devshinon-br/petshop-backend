@@ -1,7 +1,5 @@
 package com.petshop.trabalho.veterinary;
 
-import com.petshop.trabalho.pet.Pet;
-import com.petshop.trabalho.pet.PetDTO;
 import com.petshop.trabalho.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

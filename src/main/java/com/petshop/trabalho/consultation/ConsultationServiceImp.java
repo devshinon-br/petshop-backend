@@ -1,6 +1,5 @@
 package com.petshop.trabalho.consultation;
 
-import com.petshop.trabalho.person.Person;
 import com.petshop.trabalho.person.PersonRepository;
 import com.petshop.trabalho.pet.Pet;
 import com.petshop.trabalho.pet.PetRepository;

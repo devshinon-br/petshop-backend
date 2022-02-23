@@ -1,12 +1,8 @@
 package com.petshop.trabalho.veterinary;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.petshop.trabalho.consultation.Consultation;
 import com.petshop.trabalho.person.Person;
 import lombok.Data;
-
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity
