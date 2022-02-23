@@ -1,6 +1,6 @@
 # The project petshop
 ## ***UFU college project***
-### This project is in progress
+### This project is finished
 
 The objective of this application is to create a web application that manages veterinary consultations in a petshop based on the spring framework.
 
