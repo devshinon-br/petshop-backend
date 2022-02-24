@@ -6,5 +6,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    Collection<Person> findByIdIn(@Param("ids") Collection<Long> longSet);
+    Collection<Person> findByIdIn( Collection<Long> longSet);
 }
