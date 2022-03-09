@@ -25,7 +25,6 @@ public class DatabaseConfig
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
-        config.setDriverClassName("com.mysql.jdbc.Driver");
         if(Objects.nonNull(dbUser)) config.setUsername(dbUser);
         if(Objects.nonNull(dbPassword)) config.setPassword(dbPassword);
         return new HikariDataSource(config);
