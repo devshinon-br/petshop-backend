@@ -72,6 +72,22 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>heroku</id>
+			<properties>
+				<spring.profile>heroku</spring.profile>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.profile>dev</spring.profile>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
