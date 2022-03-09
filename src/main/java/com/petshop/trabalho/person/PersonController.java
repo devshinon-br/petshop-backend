@@ -1,6 +1,7 @@
 package com.petshop.trabalho.person;
 
 import com.petshop.trabalho.response.Response;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Person")
 @Slf4j
 @RestController
 @RequestMapping("/api/person")
@@ -47,7 +49,7 @@ public class PersonController {
     }
 
     @ResponseBody
-    @PostMapping
+    @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<Response<Person>> saveValues (PersonDTO personDTO) {
         Response<Person> response = new Response<>();
         try{
