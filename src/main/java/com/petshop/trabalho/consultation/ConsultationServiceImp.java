@@ -57,7 +57,7 @@ public class ConsultationServiceImp implements ConsultationService{
     public Consultation delete(Long id) {
         Consultation consultation = null;
 
-        if(Objects.nonNull(findById(id))){
+        if(consultationRepository.existsById(id)){
             consultation = findById(id);
         }
 

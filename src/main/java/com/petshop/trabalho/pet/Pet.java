@@ -25,7 +25,7 @@ public class Pet {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="person_pet",
             joinColumns = @JoinColumn(name="pet_id"),

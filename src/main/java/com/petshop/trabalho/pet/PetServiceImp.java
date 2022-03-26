@@ -48,7 +48,7 @@ public class PetServiceImp implements PetService{
     public Pet delete(Long id) {
         Pet pet = null;
 
-        if(Objects.nonNull(findById(id))){
+        if(petRepository.existsById(id)){
             pet = findById(id);
         }
 

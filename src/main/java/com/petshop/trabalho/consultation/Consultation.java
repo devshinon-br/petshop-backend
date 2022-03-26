@@ -28,7 +28,7 @@ public class Consultation {
     @JoinColumn(name="pet_id", nullable=false)
     private Pet pet;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="veterinary_consultation",
             joinColumns = @JoinColumn(name="consultation_id"),
