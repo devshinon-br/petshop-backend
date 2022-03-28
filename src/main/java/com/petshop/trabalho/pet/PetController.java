@@ -1,5 +1,6 @@
 package com.petshop.trabalho.pet;
 
+import com.petshop.trabalho.pet.request.PetRequest;
 import com.petshop.trabalho.response.Response;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +60,23 @@ public class PetController {
             log.info("Pet salvo com sucesso.");
         } catch (Exception e){
             log.error("Erro salvar Pet: {}", petDTO);
+            response.getErrors().add(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @ResponseBody
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<Pet>> updateValues(@PathVariable(name = "id")Long id, PetRequest petRequest) {
+        Response<Pet> response = new Response<>();
+        try{
+            log.info("Atualizando Pet: {}", petRequest);
+            response.setData(petService.updateCharacteristics(id, petRequest));
+            log.info("Pet atualizado com sucesso.");
+        } catch (Exception e){
+            log.error("Erro atualizar Pet: {}", petRequest);
             response.getErrors().add(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

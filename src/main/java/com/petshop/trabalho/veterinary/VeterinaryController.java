@@ -1,6 +1,7 @@
 package com.petshop.trabalho.veterinary;
 
 import com.petshop.trabalho.response.Response;
+import com.petshop.trabalho.veterinary.request.VeterinaryRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -59,6 +60,23 @@ public class VeterinaryController {
             log.info("Vet salvo com sucesso.");
         } catch (Exception e){
             log.error("Erro salvar Vet: {}", veterinaryDTO);
+            response.getErrors().add(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @ResponseBody
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<Veterinary>> updateValues (@PathVariable(name = "id") Long id, VeterinaryRequest veterinaryRequest) {
+        Response<Veterinary> response = new Response<>();
+        try{
+            log.info("Atualizando Vet: {}", veterinaryRequest);
+            response.setData(veterinaryService.updateCrmv(id, veterinaryRequest));
+            log.info("Vet atualizado com sucesso.");
+        } catch (Exception e){
+            log.error("Erro atualizar Vet: {}", veterinaryRequest);
             response.getErrors().add(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

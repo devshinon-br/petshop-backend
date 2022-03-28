@@ -1,5 +1,6 @@
 package com.petshop.trabalho.consultation;
 
+import com.petshop.trabalho.consultation.request.ConsultationRequest;
 import com.petshop.trabalho.person.PersonRepository;
 import com.petshop.trabalho.pet.Pet;
 import com.petshop.trabalho.pet.PetRepository;
@@ -39,6 +40,18 @@ public class ConsultationServiceImp implements ConsultationService{
         veterinaries.forEach(consultation.getConsultation_vet()::add);
 
         pet.ifPresent(consultation::setPet);
+
+        return consultationRepository.save(consultation);
+    }
+
+    @Override
+    public Consultation update(Long id, ConsultationRequest consultationRequest) {
+        Consultation consultation = consultationRepository.findById(id).get();
+
+        if(Objects.nonNull(consultation)){
+            consultation.setDate(consultationRequest.getDate());
+            consultation.setDescription(consultationRequest.getDescription());
+        }
 
         return consultationRepository.save(consultation);
     }

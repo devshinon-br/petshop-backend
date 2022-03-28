@@ -1,5 +1,6 @@
 package com.petshop.trabalho.person;
 
+import com.petshop.trabalho.person.request.PersonRequest;
 import com.petshop.trabalho.response.Response;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,23 @@ public class PersonController {
             log.info("Pessoa salva com sucesso.");
         } catch (Exception e){
             log.error("Erro salvar Pessoa: {}", personDTO);
+            response.getErrors().add(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @ResponseBody
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Response<Person>> updateValues(@PathVariable(name = "id") Long id, PersonRequest personRequest) {
+        Response<Person> response = new Response<>();
+        try{
+            log.info("Atualizando Pessoa: {}", personRequest);
+            response.setData(personService.update(id, personRequest));
+            log.info("Pessoa atualizada com sucesso.");
+        } catch (Exception e){
+            log.error("Erro atualizar Pessoa: {}", personRequest);
             response.getErrors().add(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

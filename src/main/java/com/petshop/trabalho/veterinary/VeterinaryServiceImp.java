@@ -2,6 +2,7 @@ package com.petshop.trabalho.veterinary;
 
 import com.petshop.trabalho.person.Person;
 import com.petshop.trabalho.person.PersonRepository;
+import com.petshop.trabalho.veterinary.request.VeterinaryRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -32,6 +33,17 @@ public class VeterinaryServiceImp implements VeterinaryService{
         }
 
         return veterinary;
+    }
+
+    @Override
+    public Veterinary updateCrmv(Long id, VeterinaryRequest veterinaryRequest) {
+        Veterinary vet =  veterinaryRepository.findById(id).get();
+
+        if(Objects.nonNull(vet)){
+            vet.setCrmv(veterinaryRequest.getCrmv());
+        }
+
+        return veterinaryRepository.save(vet);
     }
 
     @Override

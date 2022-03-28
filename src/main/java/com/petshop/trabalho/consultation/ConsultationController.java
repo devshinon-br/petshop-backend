@@ -1,5 +1,6 @@
 package com.petshop.trabalho.consultation;
 
+import com.petshop.trabalho.consultation.request.ConsultationRequest;
 import com.petshop.trabalho.response.Response;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,23 @@ public class ConsultationController {
             log.info("Consulta salva com sucesso.");
         } catch (Exception e){
             log.error("Erro salvar Consulta: {}", consultationDTO);
+            response.getErrors().add(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @ResponseBody
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<Consultation>> updateValues (@PathVariable(name = "id") Long id,  ConsultationRequest consultationRequest) {
+        Response<Consultation> response = new Response<>();
+        try{
+            log.info("Atualizando Consulta: {}", consultationRequest);
+            response.setData(consultationService.update(id, consultationRequest));
+            log.info("Consulta atualizada com sucesso.");
+        } catch (Exception e){
+            log.error("Erro atualizar Consulta: {}", consultationRequest);
             response.getErrors().add(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

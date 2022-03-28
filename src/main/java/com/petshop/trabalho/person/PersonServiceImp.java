@@ -1,5 +1,6 @@
 package com.petshop.trabalho.person;
 
+import com.petshop.trabalho.person.request.PersonRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,21 @@ public class PersonServiceImp implements PersonService{
         person.setDistrict(personDTO.getDistrict());
         person.setStreet(personDTO.getStreet());
         person.setNumber(personDTO.getNumber());
+
+        return personRepository.save(person);
+    }
+
+    @Override
+    public Person update(Long id, PersonRequest personRequest){
+        Person person = personRepository.findById(id).get();
+
+        if(Objects.nonNull(person)){
+            person.setName(personRequest.getName());
+            person.setCity(personRequest.getCity());
+            person.setDistrict(personRequest.getDistrict());
+            person.setStreet(personRequest.getStreet());
+            person.setNumber(personRequest.getNumber());
+        }
 
         return personRepository.save(person);
     }

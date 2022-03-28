@@ -2,6 +2,7 @@ package com.petshop.trabalho.pet;
 
 import com.petshop.trabalho.person.Person;
 import com.petshop.trabalho.person.PersonRepository;
+import com.petshop.trabalho.pet.request.PetRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,6 +31,20 @@ public class PetServiceImp implements PetService{
         pet.setBirth_date(petDTO.getBirth_date());
         pet.setDescription(petDTO.getDescription());
         person.ifPresent(pet.getPet_person()::add);
+
+        return petRepository.save(pet);
+    }
+
+    @Override
+    public Pet updateCharacteristics(Long id, PetRequest petRequest){
+        Pet pet = petRepository.findById(id).get();
+
+        if(Objects.nonNull(pet)){
+            pet.setName(petRequest.getName());
+            pet.setColor(petRequest.getColor());
+            pet.setBirth_date(petRequest.getBirth_date());
+            pet.setDescription(petRequest.getDescription());
+        }
 
         return petRepository.save(pet);
     }
