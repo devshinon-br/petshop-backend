@@ -1,5 +1,7 @@
 package com.petshop.trabalho.pet;
 
+import com.petshop.trabalho.consultation.Consultation;
+import com.petshop.trabalho.consultation.ConsultationRepository;
 import com.petshop.trabalho.person.Person;
 import com.petshop.trabalho.person.PersonRepository;
 import com.petshop.trabalho.pet.request.PetRequest;
@@ -9,16 +11,19 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PetServiceImp implements PetService{
 
     private final PetRepository petRepository;
     private final PersonRepository personRepository;
+    private final ConsultationRepository consultationRepository;
 
-    public PetServiceImp(PetRepository petRepository, PersonRepository personRepository) {
+    public PetServiceImp(PetRepository petRepository, PersonRepository personRepository, ConsultationRepository consultationRepository) {
         this.petRepository = petRepository;
         this.personRepository = personRepository;
+        this.consultationRepository = consultationRepository;
     }
 
     @Override
@@ -68,6 +73,11 @@ public class PetServiceImp implements PetService{
         }
 
         if(Objects.nonNull(pet)){
+            Set<Consultation> consultations = consultationRepository.findAllByPetId(pet.getId());
+            for (Consultation consultation: consultations) {
+                consultationRepository.delete(consultation);
+            }
+
             petRepository.delete(pet);
         }
 
