@@ -10,5 +10,3 @@ To put this project into practice it was used:
 - *MySql*,
 - *Lombok*,
 - *Actuator*
-
-Link: https://petshop-ppi.herokuapp.com/swagger-ui/index.html#/
